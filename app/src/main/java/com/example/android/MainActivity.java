@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,11 +16,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    final ArrayList<String> names = new ArrayList<>();
 
-    Button btnADD;
-    ListView lvMain;
-    EditText textField;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> catNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +34,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnClearSelection = (Button) findViewById(R.id.btnClear);
         Button btnTOST = (Button) findViewById(R.id.btnTOST);
 
-        // список
-        final ArrayList<String> catNames = new ArrayList<>();
+        catNames = new ArrayList<>();
 
-
-        final ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_multiple_choice, catNames);
 
@@ -77,5 +73,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+    protected void onRestoreInstanceState(Bundle outState) {
+        if (outState != null) {
+            catNames = (ArrayList<String>) outState.getStringArrayList("myKey");
+            adapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_list_item_multiple_choice, catNames);
+            ListView listView = (ListView) findViewById(R.id.lvMain);
+            listView.setAdapter(adapter);
+        }
+        super.onRestoreInstanceState(outState);
+    }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putStringArrayList("myKey", catNames);
+        super.onSaveInstanceState(outState);
     }
 }
