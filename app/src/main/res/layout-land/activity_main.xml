@@ -12,32 +12,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="19dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="@string/edit_message"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btnAdd"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:text="Добавить"
         android:theme="@style/Platform.MaterialComponents"
         app:layout_constraintStart_toEndOf="@+id/addTextField"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/button_send" />
 
     <ListView
         android:id="@+id/lvMain"
-        android:layout_width="557dp"
-        android:layout_height="151dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="19dp"
-        android:background="#ED3E3E"
+        android:layout_width="0dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="14dp"
+        android:background="#E5E9F6"
         android:theme="@style/Theme.Android"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSelectALL"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
 
@@ -47,8 +51,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="83dp"
-        android:text="Кнопка 1"
+        android:layout_marginEnd="8dp"
+        android:text="@string/btnSelectALL"
         android:theme="@style/Platform.MaterialComponents"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lvMain"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,8 +64,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="23dp"
-        android:text="Кнопка 2"
+        android:layout_marginEnd="8dp"
+        android:text="@string/btnClear"
         android:theme="@style/Platform.MaterialComponents"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lvMain"
         app:layout_constraintTop_toBottomOf="@+id/btnSelectALL" />
 
@@ -69,8 +77,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="17dp"
-        android:text="Кнопка 3"
+        android:layout_marginEnd="8dp"
+        android:text="@string/btnTOST"
         android:theme="@style/Platform.MaterialComponents"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lvMain"
         app:layout_constraintTop_toBottomOf="@+id/btnClear" />
 

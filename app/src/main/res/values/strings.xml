@@ -2,4 +2,7 @@
     <string name="app_name">Android</string>
     <string name="edit_message">Enter the message</string>
     <string name="button_send">Send</string>
+    <string name="btnSelectALL">Select all</string>
+    <string name="btnClear">Clear list</string>
+    <string name="btnTOST">TOST</string>
 </resources>

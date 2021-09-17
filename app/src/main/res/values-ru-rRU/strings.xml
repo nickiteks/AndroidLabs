@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android</string>
+    <string name="edit_message">Введите сообщение</string>
+    <string name="button_send">Ввести</string>
+    <string name="btnSelectALL">Выбрать всё</string>
+    <string name="btnClear">Очистить всё</string>
+    <string name="btnTOST">Вывести</string>
+</resources>
