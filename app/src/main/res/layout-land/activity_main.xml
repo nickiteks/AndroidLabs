@@ -7,16 +7,16 @@
     android:transitionGroup="false"
     tools:context=".MainActivity">
 
+
     <EditText
         android:id="@+id/addTextField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:autofillHints=""
+        android:layout_width="259dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="36dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="@string/edit_message_ru"
+        android:text="@string/edit_message"
         app:layout_constraintBaseline_toBaselineOf="@+id/btnAdd"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -24,7 +24,7 @@
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="88dp"
         android:layout_marginTop="16dp"
         android:text="Добавить"
         android:theme="@style/Platform.MaterialComponents"
