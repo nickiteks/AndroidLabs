@@ -3,9 +3,12 @@ package com.example.android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,13 +24,16 @@ import android.widget.Toast;
 import java.io.Console;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     ArrayAdapter<String> adapter;
     ArrayList<String> catNames;
     private Context nContext;
     private Typeface mTypeface;
+    String search_word = "search";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +44,13 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.lvMain);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         final EditText editText = (EditText) findViewById(R.id.addTextField);
+        final EditText searchText = (EditText) findViewById(R.id.searchText);
         Button btnAdd = (Button) findViewById(R.id.btnAdd);
         Button btnSelectAll = (Button) findViewById(R.id.btnSelectALL);
         Button btnClearSelection = (Button) findViewById(R.id.btnClear);
         Button btnTOST = (Button) findViewById(R.id.btnTOST);
+        Button btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(this);
 
 
         catNames = new ArrayList<>();
@@ -114,6 +123,23 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
         });
+
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                search_word = searchText.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
     protected void onRestoreInstanceState(Bundle outState) {
         if (outState != null) {
@@ -151,4 +177,23 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnSearch:
+                Intent intent = new Intent(this, SearchActivity.class);
+                //поиск
+                ArrayList<String> search = new ArrayList<>();
+                for (String item : catNames){
+                    if(item.contains(search_word)){
+                       search.add(item);
+                    }
+                }
+                intent.putExtra("MyClass", search);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+    }
 }
