@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="184dp"
         android:layout_marginTop="84dp"
-        android:text="Button"
+        android:text="Search"
         app:layout_constraintStart_toEndOf="@+id/btnSelectALL"
         app:layout_constraintTop_toBottomOf="@+id/lvMain" />
 
@@ -87,8 +87,32 @@
         android:layout_marginTop="19dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:text="search"
         app:layout_constraintStart_toEndOf="@+id/btnSelectALL"
         app:layout_constraintTop_toBottomOf="@+id/lvMain" />
+
+    <FrameLayout
+        android:id="@+id/fr_place"
+        android:layout_width="409dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTOST">
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="17dp"
+        android:onClick="Change"
+        android:text="Edit"
+        app:layout_constraintStart_toEndOf="@+id/btnTOST"
+        app:layout_constraintTop_toBottomOf="@+id/searchText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

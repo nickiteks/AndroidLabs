@@ -35,9 +35,11 @@
         android:id="@+id/btnSearch"
         android:layout_width="110dp"
         android:layout_height="48dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="15dp"
         android:text="Button"
-        tools:layout_editor_absoluteX="588dp"
-        tools:layout_editor_absoluteY="282dp" />
+        app:layout_constraintStart_toEndOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/btnTOST" />
 
     <ListView
         android:id="@+id/lvMain"
@@ -83,6 +85,17 @@
         android:theme="@style/Platform.MaterialComponents"
         app:layout_constraintStart_toEndOf="@+id/lvMain"
         app:layout_constraintTop_toBottomOf="@+id/btnClear" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="546dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="26dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvMain">
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,11 @@
 package com.example.android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Context nContext;
     private Typeface mTypeface;
     String search_word = "search";
+    Fragment fragment = null;
+    FragmentManager fm = getSupportFragmentManager();
 
 
 
@@ -141,6 +147,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    @SuppressLint("NonConstantResourceId")
+    public void Change(View view){
+        switch (view.getId()){
+            case R.id.btnEdit:
+                ListView listView = (ListView) findViewById(R.id.lvMain);
+                if (listView.getCheckedItemCount() == 1){
+                    for (int i = 0; i < listView.getCount();i++){
+                        if (listView.isItemChecked(i)){
+                            fragment = new EditFragment(adapter.getItem(i).toString());
+                        }
+                    }
+                }
+                else{
+                    Context context = getApplicationContext();
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, "Выберите элементы списка!", duration);
+                    toast.show();
+                    fragment = new EditFragment(" ");
+                }
+                break;
+        }
+
+        FragmentTransaction ft = fm.beginTransaction();
+        assert fragment != null;
+        ft.replace(R.id.fr_place,fragment);
+        ft.commit();
+    }
+
     protected void onRestoreInstanceState(Bundle outState) {
         if (outState != null) {
             catNames = (ArrayList<String>) outState.getStringArrayList("myKey");
@@ -177,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onSaveInstanceState(outState);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -195,5 +231,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+    public void dataFromFragment(String data) {
+        ListView listView = (ListView) findViewById(R.id.lvMain);
+        for(int i = 0;i<listView.getCount();i++){
+            if(listView.isItemChecked(i)){
+                catNames.set(i, data);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        fm.beginTransaction().hide(fragment).commit();
     }
 }
