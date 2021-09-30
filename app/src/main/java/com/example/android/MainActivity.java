@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String search_word = "search";
     Fragment fragment = null;
     FragmentManager fm = getSupportFragmentManager();
+    ArrayList<String> selectedUsers = new ArrayList<String>();
 
 
 
@@ -146,6 +148,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+            {
+                // получаем нажатый элемент
+                String user = adapter.getItem(position);
+                if(listView.isItemChecked(position))
+                    selectedUsers.add(user);
+                else
+                    selectedUsers.remove(user);
+            }
+        });
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -167,6 +182,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     toast.show();
                     fragment = new EditFragment(" ");
                 }
+                break;
+            case R.id.btnDel:
+                fragment = new DeleteFragment();
                 break;
         }
 
@@ -242,4 +260,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.notifyDataSetChanged();
         fm.beginTransaction().hide(fragment).commit();
     }
+
+    public void dataFromDelFragment(Boolean choose){
+        ListView listView = (ListView) findViewById(R.id.lvMain);
+        if(choose == Boolean.TRUE){
+            for(int i=0; i< selectedUsers.size();i++){
+                adapter.remove(selectedUsers.get(i));
+            }
+            // снимаем все ранее установленные отметки
+            listView.clearChoices();
+            // очищаем массив выбраных объектов
+            selectedUsers.clear();
+            adapter.notifyDataSetChanged();
+        }
+        fm.beginTransaction().hide(fragment).commit();
+    }
+
 }
