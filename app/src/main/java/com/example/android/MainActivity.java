@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+    ArrayList<State> states = new ArrayList();
     ArrayAdapter<String> adapter;
     ArrayList<String> catNames;
     private Context nContext;
@@ -47,6 +48,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        states.add(new State ("Бразилия", "Бразилиа", 1));
+        states.add(new State ("Аргентина", "Буэнос-Айрес", 2));
+        states.add(new State ("Колумбия", "Богота", 3));
+        states.add(new State ("Уругвай", "Монтевидео", 4));
+        states.add(new State ("Чили", "Сантьяго", 5));
+
+
 
         // прочтение компонентов
         ListView listView = (ListView) findViewById(R.id.lvMain);
@@ -86,14 +96,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
+        StateAdapter stateAdapter = new StateAdapter(this, R.layout.list_item, states);
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(stateAdapter);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 catNames.add(editText.getText().toString());
-                adapter.notifyDataSetChanged();
+                stateAdapter.add(new State (editText.getText().toString(),editText.getText().toString(), 1));
+                stateAdapter.notifyDataSetChanged();
             }
         });
 
