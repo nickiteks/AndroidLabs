@@ -21,6 +21,8 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -29,6 +31,7 @@ import android.widget.Toast;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String search_word = "search";
     Fragment fragment = null;
     FragmentManager fm = getSupportFragmentManager();
-    ArrayList<String> selectedUsers = new ArrayList<String>();
+    StateAdapter stateAdapter;
 
 
 
@@ -50,11 +53,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
 
-        states.add(new State ("Бразилия", "Бразилиа", 1));
-        states.add(new State ("Аргентина", "Буэнос-Айрес", 2));
-        states.add(new State ("Колумбия", "Богота", 3));
-        states.add(new State ("Уругвай", "Монтевидео", 4));
-        states.add(new State ("Чили", "Сантьяго", 5));
+        states.add(new State ("Бразилия", "Бразилиа", 1,true));
+        states.add(new State ("Аргентина", "Буэнос-Айрес", 2,true));
+        states.add(new State ("Колумбия", "Богота", 3,true));
+        states.add(new State ("Уругвай", "Монтевидео", 4,true));
+        states.add(new State ("Чили", "Сантьяго", 5,true));
 
 
 
@@ -96,15 +99,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
-        StateAdapter stateAdapter = new StateAdapter(this, R.layout.list_item, states);
+        stateAdapter = new StateAdapter(this, R.layout.list_item, states);
 
         listView.setAdapter(stateAdapter);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                catNames.add(editText.getText().toString());
-                stateAdapter.add(new State (editText.getText().toString(),editText.getText().toString(), 1));
+                stateAdapter.add(new State (editText.getText().toString(),editText.getText().toString(), 1,false));
                 stateAdapter.notifyDataSetChanged();
             }
         });
@@ -113,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 for(int i = 0;i< listView.getCount();i++){
-                    listView.setItemChecked(i,true);
+                    stateAdapter.getItem(i).setCheck(true);
+                    stateAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -122,7 +125,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 for(int i = 0;i< listView.getCount();i++){
-                    listView.setItemChecked(i,false);
+                    stateAdapter.getItem(i).setCheck(false);
+                    stateAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -132,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 CharSequence text = "";
                 for (int i = 0;i<listView.getCount();i++){
-                    if(listView.isItemChecked(i)){
-                        text += adapter.getItem(i) + " ";
+                    if(stateAdapter.getItem(i).getCheck()){
+                        text += stateAdapter.getItem(i).getName() + " ";
                     }
                 }
                 Context context = getApplicationContext();
@@ -160,19 +164,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
-            {
-                // получаем нажатый элемент
-                String user = adapter.getItem(position);
-                if(listView.isItemChecked(position))
-                    selectedUsers.add(user);
-                else
-                    selectedUsers.remove(user);
-            }
-        });
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -183,15 +174,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (listView.getCheckedItemCount() == 1){
                     for (int i = 0; i < listView.getCount();i++){
                         if (listView.isItemChecked(i)){
-                            fragment = new EditFragment(adapter.getItem(i).toString());
+                            fragment = new EditFragment(stateAdapter.getItem(i).getName().toString());
                         }
                     }
                 }
                 else{
-                    Context context = getApplicationContext();
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, "Выберите элементы списка!", duration);
-                    toast.show();
                     fragment = new EditFragment(" ");
                 }
                 break;
@@ -250,9 +237,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(this, SearchActivity.class);
                 //поиск
                 ArrayList<String> search = new ArrayList<>();
-                for (String item : catNames){
-                    if(item.contains(search_word)){
-                       search.add(item);
+                for(State state : states){
+                    if (state.getName().contains(search_word)){
+                        search.add(state.getName());
                     }
                 }
                 intent.putExtra("MyClass", search);
@@ -265,25 +252,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void dataFromFragment(String data) {
         ListView listView = (ListView) findViewById(R.id.lvMain);
         for(int i = 0;i<listView.getCount();i++){
-            if(listView.isItemChecked(i)){
-                catNames.set(i, data);
+            if(stateAdapter.getItem(i).getCheck()){
+                stateAdapter.getItem(i).setName(data);
             }
         }
-        adapter.notifyDataSetChanged();
+        stateAdapter.notifyDataSetChanged();
         fm.beginTransaction().hide(fragment).commit();
     }
 
     public void dataFromDelFragment(Boolean choose){
         ListView listView = (ListView) findViewById(R.id.lvMain);
         if(choose == Boolean.TRUE){
-            for(int i=0; i< selectedUsers.size();i++){
-                adapter.remove(selectedUsers.get(i));
+
+            ArrayList<String> checked = new ArrayList<String>();
+            for(int i = 0; i<states.size();i++) {
+                if (stateAdapter.getItem(i).getCheck()) {
+                    checked.add(stateAdapter.getItem(i).getName());
+                }
             }
+
+            for(int i = 0; i < checked.size();i++){
+                for(int j = 0; j < states.size();j++){
+                    if(stateAdapter.getItem(j).getName().equals(checked.get(i))){
+                        stateAdapter.remove(states.get(j));
+                    }
+                }
+            }
+
             // снимаем все ранее установленные отметки
-            listView.clearChoices();
+            for(int i = 0;i< listView.getCount();i++){
+                stateAdapter.getItem(i).setCheck(false);
+                stateAdapter.notifyDataSetChanged();
+            }
             // очищаем массив выбраных объектов
-            selectedUsers.clear();
-            adapter.notifyDataSetChanged();
+            stateAdapter.notifyDataSetChanged();
         }
         fm.beginTransaction().hide(fragment).commit();
     }

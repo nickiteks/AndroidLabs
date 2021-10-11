@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,11 +32,27 @@ public class StateAdapter extends ArrayAdapter<State> {
 
         TextView nameView = (TextView) view.findViewById(R.id.name);
         TextView capitalView = (TextView) view.findViewById(R.id.capital);
+        TextView number = (TextView) view.findViewById(R.id.numberTV);
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
 
         State state = states.get(position);
 
         nameView.setText(state.getName());
         capitalView.setText(state.getCapital());
+        checkBox.setChecked(state.getCheck());
+        number.setText(String.valueOf(state.getFlagResource()));
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    state.setCheck(true);
+                }
+                else {
+                    state.setCheck(false);
+                }
+            }
+        });
 
         return view;
     }

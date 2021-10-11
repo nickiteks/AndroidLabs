@@ -5,12 +5,14 @@ public class State {
     private String name; // название
     private String capital;  // столица
     private int flagResource; // ресурс флага
+    private boolean check;
 
-    public State(String name, String capital, int flag){
+    public State(String name, String capital, int flag,boolean check){
 
         this.name=name;
         this.capital=capital;
         this.flagResource=flag;
+        this.check = check;
     }
 
     public String getName() {
@@ -25,6 +27,8 @@ public class State {
         return this.capital;
     }
 
+    public Boolean getCheck(){return this.check;}
+
     public void setCapital(String capital) {
         this.capital = capital;
     }
@@ -36,5 +40,7 @@ public class State {
     public void setFlagResource(int flagResource) {
         this.flagResource = flagResource;
     }
+
+    public void setCheck(boolean check){ this.check = check;}
 
 }
