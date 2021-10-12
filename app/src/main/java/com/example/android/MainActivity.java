@@ -29,7 +29,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Console;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,14 +60,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try {
+            JSONObject object = new JSONObject(readJSON());
+            JSONArray jsonArrayNames = object.getJSONArray("data");
 
-        states.add(new State ("Бразилия", "Бразилиа", 1,true));
-        states.add(new State ("Аргентина", "Буэнос-Айрес", 2,true));
-        states.add(new State ("Колумбия", "Богота", 3,true));
-        states.add(new State ("Уругвай", "Монтевидео", 4,true));
-        states.add(new State ("Чили", "Сантьяго", 5,true));
+            for(int i = 0; i < jsonArrayNames.length(); i++){
+                states.add(new State(jsonArrayNames.getJSONObject(i).getString("first_name"),
+                                     jsonArrayNames.getJSONObject(i).getString("last_name"),
+                                     jsonArrayNames.getJSONObject(i).getInt("number"),
+                                     jsonArrayNames.getJSONObject(i).getBoolean("check")));
+            }
 
-
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // прочтение компонентов
         ListView listView = (ListView) findViewById(R.id.lvMain);
@@ -288,6 +302,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             stateAdapter.notifyDataSetChanged();
         }
         fm.beginTransaction().hide(fragment).commit();
+    }
+
+    public String readJSON() {
+        String json = null;
+        try {
+            // Opening data.json file
+            InputStream inputStream = getAssets().open("data.json");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            // read values in the byte array
+            inputStream.read(buffer);
+            inputStream.close();
+            // convert byte to string
+            json = new String(buffer, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return json;
+        }
+        return json;
     }
 
 }
