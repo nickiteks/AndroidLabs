@@ -69,10 +69,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query("mytable", null, null, null, null, null, null);
 
-        // ставим позицию курсора на первую строку выборки
-        // если в выборке нет строк, вернется false
-        int idColIndex = c.getColumnIndex("first_name");
-
         if (c.getCount() == 0) {
             return;
         }
