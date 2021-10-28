@@ -7,10 +7,10 @@ public class State {
     private int flagResource; // ресурс флага
     private boolean check;
 
-    public State(String name, String capital, int flag,boolean check){
+    public State(String name, int flag,boolean check){
 
         this.name=name;
-        this.capital=capital;
+        //this.capital=capital;
         this.flagResource=flag;
         this.check = check;
     }
@@ -23,15 +23,10 @@ public class State {
         this.name = name;
     }
 
-    public String getCapital() {
-        return this.capital;
-    }
 
     public Boolean getCheck(){return this.check;}
 
-    public void setCapital(String capital) {
-        this.capital = capital;
-    }
+
 
     public int getFlagResource() {
         return this.flagResource;

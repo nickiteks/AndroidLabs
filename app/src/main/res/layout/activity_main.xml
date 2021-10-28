@@ -11,96 +11,90 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="36dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="@string/edit_message"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btnAdd"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvMain" />
 
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="36dp"
         android:text="@string/button_send"
         app:layout_constraintStart_toEndOf="@+id/addTextField"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/addTextField" />
 
     <ListView
         android:id="@+id/lvMain"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="412dp"
-        android:background="#6C00F8"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnSelectALL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="294dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvMain" />
+        android:text="@android:string/selectAll"
+        app:layout_constraintEnd_toEndOf="@+id/btnTOST"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnClear" />
 
     <Button
         android:id="@+id/btnClear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="294dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSelectALL" />
+        android:text="Clear"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnTOST" />
 
     <Button
         android:id="@+id/btnTOST"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="293dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnClear" />
+        android:layout_marginStart="88dp"
+        android:text="TOST"
+        app:layout_constraintStart_toStartOf="@+id/btnClear"
+        app:layout_constraintTop_toBottomOf="@+id/addTextField" />
 
     <Button
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginEnd="4dp"
         android:text="Search"
-        app:layout_constraintStart_toEndOf="@+id/btnSelectALL"
-        app:layout_constraintTop_toBottomOf="@+id/lvMain" />
+        app:layout_constraintBottom_toTopOf="@+id/btnDel"
+        app:layout_constraintEnd_toStartOf="@+id/btnEdit" />
 
     <EditText
         android:id="@+id/searchText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="search"
-        app:layout_constraintStart_toEndOf="@+id/btnSelectALL"
-        app:layout_constraintTop_toBottomOf="@+id/lvMain" />
+        app:layout_constraintBottom_toTopOf="@+id/fr_place"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearch" />
 
     <FrameLayout
         android:id="@+id/fr_place"
-        android:layout_width="409dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="413dp"
+        android:layout_height="147dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTOST">
+        app:layout_constraintStart_toStartOf="parent">
 
     </FrameLayout>
 
@@ -108,23 +102,22 @@
         android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="16dp"
         android:onClick="Change"
         android:text="Edit"
-        app:layout_constraintStart_toEndOf="@+id/btnTOST"
-        app:layout_constraintTop_toBottomOf="@+id/searchText" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnSearch" />
 
     <Button
         android:id="@+id/btnDel"
         android:layout_width="128dp"
         android:layout_height="40dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="20dp"
         android:onClick="Change"
-        android:text="Удалить"
+        android:text="Delete"
         app:layout_constraintBottom_toTopOf="@+id/fr_place"
-        app:layout_constraintStart_toEndOf="@+id/btnTOST"
-        app:layout_constraintTop_toBottomOf="@+id/btnEdit" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchText"
+        app:layout_constraintTop_toTopOf="@+id/btnEdit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,10 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             JSONArray jsonArrayNames = object.getJSONArray("data");
 
             for(int i = 0; i < jsonArrayNames.length(); i++){
-                states.add(new State(jsonArrayNames.getJSONObject(i).getString("first_name"),
-                                     jsonArrayNames.getJSONObject(i).getString("last_name"),
-                                     jsonArrayNames.getJSONObject(i).getInt("number"),
-                                     jsonArrayNames.getJSONObject(i).getBoolean("check")));
+                states.add(new State(jsonArrayNames.getJSONObject(i).getString("names"),
+                                     jsonArrayNames.getJSONObject(i).getInt("numbers"),
+                                     jsonArrayNames.getJSONObject(i).getBoolean("logic")));
             }
 
         } catch (JSONException e) {
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAdd.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                stateAdapter.add(new State (editText.getText().toString(),editText.getText().toString(), 1,false));
+                stateAdapter.add(new State (editText.getText().toString(), 1,false));
                 stateAdapter.notifyDataSetChanged();
             }
         });

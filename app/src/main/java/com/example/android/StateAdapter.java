@@ -31,14 +31,14 @@ public class StateAdapter extends ArrayAdapter<State> {
 
 
         TextView nameView = (TextView) view.findViewById(R.id.name);
-        TextView capitalView = (TextView) view.findViewById(R.id.capital);
+       // TextView capitalView = (TextView) view.findViewById(R.id.capital);
         TextView number = (TextView) view.findViewById(R.id.numberTV);
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
 
         State state = states.get(position);
 
         nameView.setText(state.getName());
-        capitalView.setText(state.getCapital());
+       // capitalView.setText(state.getCapital());
         checkBox.setChecked(state.getCheck());
         number.setText(String.valueOf(state.getFlagResource()));
 
