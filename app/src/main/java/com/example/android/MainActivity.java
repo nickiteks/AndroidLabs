@@ -6,14 +6,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -58,24 +62,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     StateAdapter stateAdapter;
     final String LOG_TAG = "myLogs";
     DBHelper dbHelper;
+    boolean mBound = false;
+    MyService mService;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Bind to LocalService
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(connection);
+        mBound = false;
+    }
+
+    private ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            MyService.LocalBinder binder = (MyService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbHelper = new DBHelper(this);
-
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = db.query("mytable", null, null, null, null, null, null);
-
-        if (c.getCount() == 0) {
-            return;
-        }
-
-        while (c.moveToNext()){
-            states.add(new State(c.getString(1),c.getString(2),c.getInt(3),false));
-        }
 
         // прочтение компонентов
         ListView listView = (ListView) findViewById(R.id.lvMain);
@@ -89,6 +113,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btnSearch = (Button) findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(this);
 
+        Intent intent = new Intent(this, MyService.class);
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+
+        if (mBound) {
+            states = mService.getData();
+        }
 
         catNames = new ArrayList<>();
 

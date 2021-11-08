@@ -1,5 +1,7 @@
 package com.example.android;
 
+import java.io.Serializable;
+
 public class State {
 
     private String name; // название
