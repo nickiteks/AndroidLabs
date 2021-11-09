@@ -3,7 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout-land/activity_main.xml" value="0.21516754850088182" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout-ru/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout/activity_dynamic_land.xml" value="0.22" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout/activity_main2.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout/activity_settings.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout/fragment_change.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout/fragment_del.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout/fragment_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/1/AndroidStudioProjects/laba2/app/src/main/res/layout/simple_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/font/almendra.xml" value="0.1" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout-land/activity_main.xml" value="0.1728395061728395" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout-ru/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout/activity_dynamic_land.xml" value="0.18478260869565216" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout/activity_main2.xml" value="0.2" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout/activity_settings.xml" value="0.2" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout/fragment_chenge.xml" value="0.2" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout/fragment_del.xml" value="0.15" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout/fragment_main.xml" value="0.16" />
+        <entry key="..\:/Users/User/laba2/app/src/main/res/layout/simple_list.xml" value="0.25" />
       </map>
     </option>
   </component>

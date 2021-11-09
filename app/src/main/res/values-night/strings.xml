@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_title">Список студентов</string>
+    <string name="text_text">Студент</string>
+    <string name="text_buttonAdd">Добавить</string>
+    <string name="text_buttonSelected">Выделить</string>
+    <string name="text_buttonNoSel">Снять выделение</string>
+    <string name="text_buttonPrint">Вывести</string>
+    <string name="text_buttonChange">Изменить</string>
+    <string name="text_buttonDel">Удалить</string>
+    <string name="text_buttonSearch">Искать</string>
+</resources>
