@@ -6,13 +6,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -52,27 +56,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Fragment fragment = null;
     FragmentManager fm = getSupportFragmentManager();
     StateAdapter stateAdapter;
-
-
+    final String LOG_TAG = "myLogs";
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            JSONObject object = new JSONObject(readJSON());
-            JSONArray jsonArrayObject = object.getJSONArray("data");
+        dbHelper = new DBHelper(this);
 
-            for(int i = 0; i < jsonArrayObject.length(); i++){
-                states.add(new State(jsonArrayObject.getJSONObject(i).getString("TextA"),
-                        jsonArrayObject.getJSONObject(i).getString("TextB"),
-                        jsonArrayObject.getJSONObject(i).getInt("numbers"),
-                        jsonArrayObject.getJSONObject(i).getBoolean("check")));
-            }
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("mytable", null, null, null, null, null, null);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (c.getCount() == 0) {
+            return;
+        }
+
+        while (c.moveToNext()){
+            states.add(new State(c.getString(1),c.getString(2),c.getInt(3),false));
         }
 
         // прочтение компонентов
@@ -120,6 +122,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAdd.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+                ContentValues cv = new ContentValues();
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+                cv.put("first_name",editText.getText().toString());
+                cv.put("last_name",editText.getText().toString());
+                cv.put("number",1);
+
+                db.insert("mytable", null, cv);
+
                 stateAdapter.add(new State (editText.getText().toString(),editText.getText().toString(), 1,false));
                 stateAdapter.notifyDataSetChanged();
             }
