@@ -62,13 +62,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         try {
             JSONObject object = new JSONObject(readJSON());
-            JSONArray jsonArrayNames = object.getJSONArray("data");
+            JSONArray jsonArrayObject = object.getJSONArray("data");
 
-            for(int i = 0; i < jsonArrayNames.length(); i++){
-                states.add(new State(jsonArrayNames.getJSONObject(i).getString("first_name"),
-                                     jsonArrayNames.getJSONObject(i).getString("last_name"),
-                                     jsonArrayNames.getJSONObject(i).getInt("number"),
-                                     jsonArrayNames.getJSONObject(i).getBoolean("check")));
+            for(int i = 0; i < jsonArrayObject.length(); i++){
+                states.add(new State(jsonArrayObject.getJSONObject(i).getString("TextA"),
+                        jsonArrayObject.getJSONObject(i).getString("TextB"),
+                        jsonArrayObject.getJSONObject(i).getInt("numbers"),
+                        jsonArrayObject.getJSONObject(i).getBoolean("check")));
             }
 
         } catch (JSONException e) {
