@@ -69,9 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query("mytable", null, null, null, null, null, null);
 
-        if (c.getCount() == 0) {
-            return;
-        }
+
 
         while (c.moveToNext()){
             states.add(new State(c.getString(1),c.getString(2),c.getInt(3),false));
@@ -189,6 +187,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+        if (c.getCount() == 0) {
+            return;
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
