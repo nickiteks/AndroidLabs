@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     StateAdapter stateAdapter;
     final String LOG_TAG = "myLogs";
     DBHelper dbHelper;
+    boolean isDatabase= true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +66,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         dbHelper = new DBHelper(this);
+        Cursor c = null;
+        if(isDatabase) {
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            c = db.query("mytable", null, null, null, null, null, null);
+            while (c.moveToNext()) {
+                states.add(new State(c.getString(1), c.getString(2), c.getInt(3), false));
+            }
+        } else {
+            try {
+                JSONObject object = new JSONObject(readJSON());
+                JSONArray jsonArrayObject = object.getJSONArray("data");
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = db.query("mytable", null, null, null, null, null, null);
+                for (int i = 0; i < jsonArrayObject.length(); i++) {
+                    states.add(new State(jsonArrayObject.getJSONObject(i).getString("TextA"),
+                            jsonArrayObject.getJSONObject(i).getString("TextB"),
+                            jsonArrayObject.getJSONObject(i).getInt("numbers"),
+                            jsonArrayObject.getJSONObject(i).getBoolean("check")));
+                }
 
-
-
-        while (c.moveToNext()){
-            states.add(new State(c.getString(1),c.getString(2),c.getInt(3),false));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-
         // прочтение компонентов
         ListView listView = (ListView) findViewById(R.id.lvMain);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
