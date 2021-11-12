@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">Android</string>
-    <string name="edit_message">Enter the message</string>
-    <string name="button_send">Send</string>
+    <string name="text_title">List</string>
+    <string name="text_text">Student</string>
+    <string name="text_buttonAdd">Add</string>
+    <string name="text_buttonSelected">Select</string>
+    <string name="text_buttonNoSel">No Select</string>
+    <string name="text_buttonPrint">Print</string>
+    <string name="text_buttonChange">Change</string>
+    <string name="text_buttonDel">Del</string>
+    <string name="text_buttonSearch">Search</string>
+    <string name="text_search">You were looking for</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>
